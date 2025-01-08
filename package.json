@@ -1,0 +1,22 @@
+{
+  "name": "first-express-github-project",
+  "version": "1.0.0",
+  "description": "Creating First Express Project on GitHub",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jodjo/first-express-github-project.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Jodjo/first-express-github-project/issues"
+  },
+  "homepage": "https://github.com/Jodjo/first-express-github-project#readme",
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}
