@@ -31,7 +31,7 @@ app.post("/todo-list", (req, res) => {
 		return res
 			.status(400)
 			.json({ error: "Status must be at least 3 characters" });
-	} else if (status.toLowerCase() !== "To Do".toLowerCase() || status.toLowerCase() !== "Ongoing".toLowerCase() || status.toLowerCase() !== "Done".toLowerCase()) {
+	} else if (status.toLowerCase() !== "To Do".toLowerCase() && status.toLowerCase() !== "Ongoing".toLowerCase() && status.toLowerCase() !== "Done".toLowerCase()) {
 		return res.status(400).json({
 			error: "Status must be To do, or Ongoing or Done",
 		});
@@ -58,8 +58,11 @@ app.delete("/todo-list/:id", (req, res) => {
 	const id = Number(req.params.id);
 
 	const itemIndex = toDo.findIndex((toDoTask) => toDoTask.id === id);
+	console.log(itemIndex);
+	console.log(toDo.splice(itemIndex + 1, 1));
 
-	toDo.splice(itemIndex, 1);
+	toDo.splice(itemIndex + 1, 1);
+	console.log("This task was deleted:", toDo.splice(itemIndex + 1, 1));
 	res.status(200).send();
 });
 
