@@ -1,15 +1,18 @@
 const express = require("express");
 const app = express();
 
+const fs = require("fs");
+
 app.use(express.json());
 
-const toDo = [
-	{ id: 1, title: "Grocery shopping", status: "Done" },
-	{ id: 2, title: "Tidying room", status: "Ongoing" },
-];
+let toDo = [];
 
-const fs = require("fs");
-const tasks = JSON.stringify(toDo);
+fs.readFile("tasks.json", (err, jsonData) => {
+	if (err) throw err;
+	data = JSON.parse(jsonData);
+	console.log(data);
+	toDo = data;
+});
 
 app.get("/todo-list", (req, res) => {
 	res.status(200).json(toDo);
@@ -18,6 +21,21 @@ app.get("/todo-list", (req, res) => {
 app.post("/todo-list", (req, res) => {
 	const title = String(req.body.title);
 	const status = String(req.body.status);
+
+	if (title.trim().length === 0) {
+		return res
+			.status(400)
+			.json({ error: "Title must be at least 3 characters" });
+	}
+	if (status.trim().length === 0) {
+		return res
+			.status(400)
+			.json({ error: "Status must be at least 3 characters" });
+	} else if (status.toLowerCase() !== "To Do".toLowerCase() || status.toLowerCase() !== "Ongoing".toLowerCase() || status.toLowerCase() !== "Done".toLowerCase()) {
+		return res.status(400).json({
+			error: "Status must be To do, or Ongoing or Done",
+		});
+	}
 
 	const newToDo = {
 		id: toDo.length + 1,
@@ -28,7 +46,9 @@ app.post("/todo-list", (req, res) => {
 	toDo.push(newToDo);
 	res.status(201).json(newToDo);
 
-	fs.writeFile("tasks.json", toDo, (err) => {
+	const tasks = JSON.stringify(toDo);
+
+	fs.writeFile("tasks.json", tasks, (err) => {
 		if (err) throw err;
 		console.log("Data added");
 	});
@@ -48,10 +68,3 @@ const port = 3000;
 app.listen(port, () => {
 	console.log(`Server is listening on port ${port}`);
 });
-
-// const fs = require("fs");
-// const tasks = JSON.stringify(toDo);
-// fs.writeFile("tasks.json", tasks, (err) => {
-// 	if (err) throw err;
-// 	console.log("File saved");
-// });
