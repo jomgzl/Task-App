@@ -1,9 +1,12 @@
 const express = require("express");
 const app = express();
+const tasksRoutes = require("./routes/tasksRouter");
 
 const fs = require("fs");
 
 app.use(express.json());
+
+app.use("/api", tasksRoutes);
 
 let toDo = [];
 

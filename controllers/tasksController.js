@@ -1,4 +1,4 @@
-const dbConnection = require("./config/db");
+const dbConnection = require("../config/db");
 
 exports.getTasks = (req, res) => {
 	const selectTableQuery = "SELECT * FROM tasks";
@@ -49,23 +49,66 @@ exports.createTask = (req, res) => {
 	});
 };
 
-exports.updateTask = (req, res) => {};
+exports.updateTask = (req, res) => {
+	const id = Number(req.params.id);
+	const title = String(req.body.title);
+	const status = String(req.body.status);
+
+	const idSearchQuery = "SELECT * FROM tasks WHERE id = ? ";
+
+	dbConnection.query(idSearchQuery, id, (err, result, fields) => {
+		if (err) throw err;
+
+		if (result.length === 0) {
+			return res.status(400).json({
+				error: "Task doesn't exist",
+				description: "Please choose a smaller ID",
+			});
+		} else {
+			console.log("The id is: ", result[0].id);
+			const idFinal = result[0].id;
+			const data = [title, status, idFinal];
+			const updateIdsQuery =
+				"UPDATE tasks SET title = ?, status = ? WHERE id = ?";
+
+			dbConnection.query(updateIdsQuery, data, (err, result, fields) => {
+				if (err) throw err;
+				res.status(201).json({ message: "Task updated successfully" });
+			});
+		}
+	});
+};
 
 exports.deleteTask = (req, res) => {
 	const id = Number(req.params.id);
 
 	const idSearchQuery = "SELECT * FROM tasks WHERE id = ? ";
 
-	dbConnection.query(idSearchQuery, id, (err, result, fields) => {});
+	dbConnection.query(idSearchQuery, id, (err, result, fields) => {
+		if (err) throw err;
 
-	if (itemIndex === -1) {
-		return res.status(400).json({
-			error: "Task doesn't exist",
-			description: `There are currently ${toDo.length} tasks`,
-		});
-	}
+		if (result.length === 0) {
+			return res.status(400).json({
+				error: "Task doesn't exist",
+				description: "Please choose a smaller ID",
+			});
+		} else {
+			console.log("The id is: ", result[0].id);
+			const idFinal = result[0].id;
+			const deleteQuery = "DELETE FROM tasks WHERE id = ?";
+			const updateIdsQuery = "UPDATE tasks SET id = id - 1 WHERE id > ?";
 
-	const deleteQuery = 0;
-
-	res.status(200).send();
+			dbConnection.query(deleteQuery, idFinal, (err, result, fields) => {
+				if (err) throw err;
+				dbConnection.query(
+					updateIdsQuery,
+					idFinal,
+					(err, result, fields) => {
+						if (err) throw err;
+					}
+				);
+				res.status(200).send();
+			});
+		}
+	});
 };
