@@ -18,9 +18,11 @@ const writeToFile = (toDos) => {
 
 fs.readFile("tasks.json", (err, jsonData) => {
 	if (err) throw err;
-	data = JSON.parse(jsonData);
-	console.log(data);
-	toDo = data;
+	if (jsonData.length > 0) {
+		data = JSON.parse(jsonData);
+		console.log(data);
+		toDo = data;
+	}
 });
 
 app.get("/todo-list", (req, res) => {
