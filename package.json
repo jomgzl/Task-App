@@ -23,6 +23,7 @@
 	},
 	"homepage": "https://github.com/Jodjo/first-express-github-project#readme",
 	"dependencies": {
+		"body-parser": "^1.20.3",
 		"dotenv": "^16.4.7",
 		"express": "^4.21.2",
 		"mysql2": "^3.12.0",

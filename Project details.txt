@@ -1,0 +1,29 @@
+Tasks Project:
+
+Create, read, update and delete tasks
+
+Stack:
+
+Back:
+Node.js
+Express.js
+
+Front:
+HTML
+
+Database:
+MySQL
+
+
+CRUD operations
+Validations
+DB
+Save in files
+Tests
+Authentication
+
+Task :
+		- ID (Automatic, not added by user, but chosen by user to update or delete)
+		- Title
+		- Status
+		- Description
