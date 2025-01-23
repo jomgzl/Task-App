@@ -1,6 +1,25 @@
-<html>
-	<head></head>
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Tasks</title>
+	</head>
 	<body>
-		<h1>This is an H1 one tag in a HTML file</h1>
+		<h1>Hello, this is your Tasks App</h1>
+		<div>
+			<button type="button">
+				<a href="/api/db/todo-list">View Tasks</a>
+			</button>
+		</div>
+		<div>
+			<form action="api/db/todo-list/add" method="POST">
+				<label>Title:</label>
+				<input type="text" name="title" />
+				<label>Status:</label>
+				<input type="text" name="status" />
+				<input type="submit" value="Add" />
+			</form>
+		</div>
 	</body>
 </html>
