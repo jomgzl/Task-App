@@ -8,6 +8,7 @@ app.use(express.json());
 app.use("/api", tasksRoutes);
 
 app.use(express.static("views"));
+app.use(express.static("views/login.html"));
 
 const port = 3000;
 

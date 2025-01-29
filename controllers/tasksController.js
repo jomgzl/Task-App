@@ -33,33 +33,64 @@ const updateTaskValidator = (status, res) => {
 	}
 };
 
+const taskDoesNotExist = (id, res, doesNotExist) => {
+	const idSearchQuery = "SELECT * FROM tasks WHERE id = ? ";
+
+	dbConnection.query(idSearchQuery, id, (err, result, fields) => {
+		if (err) throw err;
+
+		if (result.length === 0) {
+			res.status(400).json({
+				error: "Task doesn't exist",
+				description: "Please choose a smaller ID",
+			});
+			doesNotExist(true);
+		} else doesNotExist(false);
+	});
+};
+
 exports.getTasks = (req, res) => {
 	const selectTableQuery = "SELECT * FROM tasks";
 	dbConnection.query(selectTableQuery, (err, rows, fields) => {
 		if (err) throw err;
-		console.log("The table is : ", rows);
+		console.log("The table is: ", rows);
 		res.status(200).json(rows);
+	});
+};
+
+exports.getTask = (req, res) => {
+	const id = req.params.id;
+	taskDoesNotExist(id, res, (doesNotExist) => {
+		if (doesNotExist) {
+			console.log("Here");
+			return 0;
+		} else {
+			const selectTaskQuery = "SELECT * FROM tasks WHERE id = ?";
+			dbConnection.query(selectTaskQuery, id, (err, task, fields) => {
+				if (err) throw err;
+				console.log("The task is: ", task);
+				res.status(200).json(task);
+			});
+		}
 	});
 };
 
 exports.createTask = (req, res) => {
 	const title = String(req.body.title);
 	const status = String(req.body.status);
-	console.log(req.body.title);
-	console.log(title);
-	console.log(status);
+	const description = String(req.body.description);
 
 	if (createTaskValidator(title, status, res)) return 0;
 	else {
 		const selectlastId = "SELECT id FROM tasks ORDER BY id DESC LIMIT 1";
 		const postQuery =
-			"INSERT INTO tasks (id, title, status) VALUES (?, ?, ?)";
+			"INSERT INTO tasks (id, title, status, description) VALUES (?, ?, ?, ?)";
 		let data = [];
 
 		dbConnection.query(selectlastId, (err, id, fields) => {
 			if (err) throw err;
 			id = id[0].id;
-			data.push(id + 1, title, status);
+			data.push(id + 1, title, status, description);
 
 			dbConnection.query(postQuery, data, (err, taskAdded, fields) => {
 				if (err) throw err;
@@ -74,6 +105,7 @@ exports.updateTask = (req, res) => {
 	const id = Number(req.params.id);
 	const title = String(req.body.title);
 	const status = String(req.body.status);
+	const description = String(req.body.description);
 
 	if (updateTaskValidator(status, res)) return 0;
 	else {
@@ -93,14 +125,16 @@ exports.updateTask = (req, res) => {
 				const idFinal = result[0].id;
 				const taskTitle = result[0].title;
 				const taskStatus = result[0].status;
+				const taskDescription = result[0].description;
 				console.log("This is the saved title: ", taskTitle);
 				const data = [
 					title || taskTitle,
 					status || taskStatus,
+					description || taskDescription,
 					idFinal,
 				];
 				const updateIdsQuery =
-					"UPDATE tasks SET title = ?, status = ? WHERE id = ?";
+					"UPDATE tasks SET title = ?, status = ?, description = ? WHERE id = ?";
 
 				dbConnection.query(
 					updateIdsQuery,
