@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Tasks</title>
+	</head>
+	<body>
+		<a href="/api/db/todo-list/new/task"><button style="margin-left: 500px">+</button></a>
+		<table>
+			<tr>
+				<th style="padding: 10px">Id</th>
+				<th>Title</th>
+				<th>Status</th>
+				<th>Description</th>
+			</tr>
+			<%for(let i =0; i < tasks.length; i++) { %>
+			<tr>
+				<td style="text-align: center; padding: 10px">
+					<a href= todo-list/<%=tasks[i].id%>><%=tasks[i].id%></a>
+				</td>
+				<td style="text-align: center; padding: 10px">
+					<a href= todo-list/<%=tasks[i].id%>><%=tasks[i].title%></a>
+				</td>
+				<td style="text-align: center; padding: 10px">
+					<%=tasks[i].status%>
+				</td>
+				<td style="text-align: center; padding: 10px">
+					<%=tasks[i].description%>
+				</td>
+				<%}%>
+			</tr>
+		</table>
+	</body>
+</html>

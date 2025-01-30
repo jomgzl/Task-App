@@ -54,7 +54,8 @@ exports.getTasks = (req, res) => {
 	dbConnection.query(selectTableQuery, (err, rows, fields) => {
 		if (err) throw err;
 		console.log("The table is: ", rows);
-		res.status(200).json(rows);
+		res.render("tasks", { tasks: rows });
+		// res.status(200).json(rows);
 	});
 };
 
@@ -62,17 +63,21 @@ exports.getTask = (req, res) => {
 	const id = req.params.id;
 	taskDoesNotExist(id, res, (doesNotExist) => {
 		if (doesNotExist) {
-			console.log("Here");
 			return 0;
 		} else {
 			const selectTaskQuery = "SELECT * FROM tasks WHERE id = ?";
 			dbConnection.query(selectTaskQuery, id, (err, task, fields) => {
 				if (err) throw err;
 				console.log("The task is: ", task);
-				res.status(200).json(task);
+				res.render("task", { task: task });
+				// res.status(200).json(task);
 			});
 		}
 	});
+};
+
+exports.renderAddTaskPage = (req, res) => {
+	res.render("add-task");
 };
 
 exports.createTask = (req, res) => {
@@ -179,8 +184,42 @@ exports.deleteTask = (req, res) => {
 						if (err) throw err;
 					}
 				);
-				res.status(200).send();
+				res.status(200).json({ message: "Item deleted successfully" });
 			});
 		}
 	});
 };
+
+// exports.deleteTask = (req, res) => {
+// 	const id = Number(req.params.id);
+
+// 	const idSearchQuery = "SELECT * FROM tasks WHERE id = ? ";
+
+// 	dbConnection.query(idSearchQuery, id, (err, result, fields) => {
+// 		if (err) throw err;
+
+// 		if (result.length === 0) {
+// 			return res.status(400).json({
+// 				error: "Task doesn't exist",
+// 				description: "Please choose a smaller ID",
+// 			});
+// 		} else {
+// 			console.log("The id is: ", result[0].id);
+// 			const idFinal = result[0].id;
+// 			const deleteQuery = "DELETE FROM tasks WHERE id = ?";
+// 			const updateIdsQuery = "UPDATE tasks SET id = id - 1 WHERE id > ?";
+
+// 			dbConnection.query(deleteQuery, idFinal, (err, result, fields) => {
+// 				if (err) throw err;
+// 				dbConnection.query(
+// 					updateIdsQuery,
+// 					idFinal,
+// 					(err, result, fields) => {
+// 						if (err) throw err;
+// 					}
+// 				);
+// 				res.status(200).send();
+// 			});
+// 		}
+// 	});
+// };
