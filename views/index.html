@@ -7,42 +7,9 @@
 	</head>
 	<body>
 		<h1>Hello, this is your Tasks App</h1>
-		<button><a href="login">Login</a></button>
+		<!-- <button><a href="login">Login</a></button> -->
 		<div>
-			<form action="api/db/todo-list/add" method="POST">
-				<label
-					style="
-						display: block;
-						margin-top: 10px;
-						margin-bottom: 10px;
-					"
-					>Title:</label
-				>
-				<input type="text" name="title" />
-				<label
-					style="
-						display: block;
-						margin-top: 10px;
-						margin-bottom: 10px;
-					"
-					>Status:</label
-				>
-				<input type="text" name="status" />
-				<label
-					for="description"
-					style="
-						display: block;
-						margin-top: 10px;
-						margin-bottom: 10px;
-					"
-					>Description:</label
-				>
-				<textarea name="description" rows="5" cols="56"></textarea>
-				<input type="submit" value="Add" />
-			</form>
-		</div>
-		<div>
-			<button type="button" style="margin-top: 2%">
+			<button type="button" style="margin-left: 500px">
 				<a href="/api/db/todo-list">View Tasks</a>
 			</button>
 		</div>
