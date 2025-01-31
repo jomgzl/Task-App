@@ -100,10 +100,21 @@ exports.createTask = (req, res) => {
 			dbConnection.query(postQuery, data, (err, taskAdded, fields) => {
 				if (err) throw err;
 				console.log("The following task was added: ", data);
-				res.status(201).json({ Message: "Task added successfully" });
+				res.redirect(`/api/db/todo-list/${id + 1}`);
+				// res.status(201).json({ Message: "Task added successfully" });
 			});
 		});
 	}
+};
+exports.renderUpdatePage = (req, res) => {
+	const id = Number(req.params.id);
+
+	const idSearchQuery = "SELECT * FROM tasks WHERE id = ? ";
+
+	dbConnection.query(idSearchQuery, id, (err, result, fields) => {
+		if (err) throw err;
+		res.render("modify-task", { task: result });
+	});
 };
 
 exports.updateTask = (req, res) => {
@@ -125,13 +136,10 @@ exports.updateTask = (req, res) => {
 					description: "Please choose a smaller ID",
 				});
 			} else {
-				console.log("The result is: ", result);
-				console.log("The id is: ", result[0].id);
 				const idFinal = result[0].id;
 				const taskTitle = result[0].title;
 				const taskStatus = result[0].status;
 				const taskDescription = result[0].description;
-				console.log("This is the saved title: ", taskTitle);
 				const data = [
 					title || taskTitle,
 					status || taskStatus,

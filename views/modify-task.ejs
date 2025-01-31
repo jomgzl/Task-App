@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Modify Task</title>
+	</head>
+	<body>
+		<a href="/api/db/todo-list"><button>Go back to tasks</button></a>
+		<div>
+			<form>
+				<label
+					style="
+						display: block;
+						margin-top: 10px;
+						margin-bottom: 10px;
+					"
+					>Title:</label
+				>
+				<input type="text" name="title" value="<%= task[0].title%>" />
+				<label
+					style="
+						display: block;
+						margin-top: 10px;
+						margin-bottom: 10px;
+					"
+					>Status:</label
+				>
+				<input type="text" name="status" value="<%= task[0].status%>" />
+				<label
+					for="description"
+					style="
+						display: block;
+						margin-top: 10px;
+						margin-bottom: 10px;
+					"
+					>Description:</label
+				>
+				<textarea name="description" rows="5" cols="56">
+<%=task[0].description%></textarea
+				>
+			</form>
+			<button onclick="redirectToTask('<%=task[0].id%>')">Modify</button>
+		</div>
+		<script>
+			function redirectToTask(id) {
+				let title = document.querySelector("form input[name='title']");
+				let status = document.querySelector("form input[name='status']");
+				let description = document.querySelector("form textarea[name='description']");
+				fetch(`http://localhost:3000/api/db/todo-list/${id}`, {
+					method: "PUT",
+					headers: { "Content-type": "application/json" },
+					body: JSON.stringify({
+						title: title.value,
+						status: status.value,
+						description: description.value
+					}),
+				})
+					.then((response) => response.json())
+					.then((data) => {
+						console.log("In fetch update", data);
+						alert(`You've succesfully modified ${title.value}`);
+						window.location.href=`/api/db/todo-list/${id}`;
+					})
+					.catch((error) => console.error("Error: ", error));
+			}
+		</script>
+	</body>
+</html>

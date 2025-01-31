@@ -12,9 +12,11 @@
 		<p style="display: inline-block"><%=task[0].status%></p>
 		<h2>Description:</h2>
 		<p><%=task[0].description%></p>
-		<a href="/api/db/todo-list"><button>Go back</button></a>
-		<button style="margin: 100px 10px 100px 300px">Modify</button>
-		<button onclick="deleteTask(<%=task[0].id%>)">Delete</button>
+		<a href="/api/db/todo-list"><button>Go back to tasks</button></a>
+		<a href=/api/db/todo-list/modify/task/<%=task[0].id%>
+			><button style="margin: 100px 10px 100px 300px">Modify</button></a
+		>
+		<button onclick="deleteTask('<%=task[0].id%>')">Delete</button>
 		<script>
 			function deleteTask(id) {
 				fetch(`http://localhost:3000/api/db/todo-list/${id}`, {
