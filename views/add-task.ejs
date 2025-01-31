@@ -1,45 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Add Task</title>
-</head>
-<body>
-	<a href="/api/db/todo-list"><button>Go back</button></a>
-	<div>
-		<form action="/api/db/todo-list/add" method="POST">
-			<label
-				style="
-					display: block;
-					margin-top: 10px;
-					margin-bottom: 10px;
-				"
-				>Title:</label
-			>
-			<input type="text" name="title" />
-			<label
-				style="
-					display: block;
-					margin-top: 10px;
-					margin-bottom: 10px;
-				"
-				>Status:</label
-			>
-			<input type="text" name="status" />
-			<label
-				for="description"
-				style="
-					display: block;
-					margin-top: 10px;
-					margin-bottom: 10px;
-				"
-				>Description:</label
-			>
-			<textarea name="description" rows="5" cols="56"></textarea>
-			<input type="submit" value="Add" />
-		</form>
-	</div>
-	<script> </script>
-</body>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Add Task</title>
+	</head>
+	<body>
+		<a href="/api/db/todo-list"><button>Go back</button></a>
+		<div>
+			<form action="/api/db/todo-list/add" method="POST">
+				<label
+					style="
+						display: block;
+						margin-top: 10px;
+						margin-bottom: 10px;
+					"
+					>Title:</label
+				>
+				<input type="text" name="title" />
+				<label
+					style="
+						display: block;
+						margin-top: 10px;
+						margin-bottom: 10px;
+					"
+					>Status:</label
+				>
+				<input type="text" name="status" />
+				<label
+					for="description"
+					style="
+						display: block;
+						margin-top: 10px;
+						margin-bottom: 10px;
+					"
+					>Description:</label
+				>
+				<textarea name="description" rows="5" cols="56"></textarea>
+				<input onclick="redirectToTask()" type="submit" value="Add" />
+			</form>
+		</div>
+		<script>
+			function redirectToTask() {
+				alert("You've succesfully added a task");
+			}
+		</script>
+	</body>
 </html>
