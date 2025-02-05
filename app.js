@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+const usersRoutes = require("./routes/usersRouter");
 const tasksRoutes = require("./routes/tasksRouter");
 const bodyParser = require("body-parser");
 
@@ -7,10 +8,11 @@ app.set("view engine", "ejs");
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
+app.use("/user", usersRoutes);
 app.use("/api", tasksRoutes);
 
 app.use(express.static("views"));
-app.use(express.static("views/login.html"));
+app.use(express.static("public"));
 
 const port = 3000;
 

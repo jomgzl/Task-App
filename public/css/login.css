@@ -1,0 +1,72 @@
+.center {
+	height: 100vh;
+	display: flex;
+	margin: 0;
+	justify-content: center;
+	align-items: center;
+	transform: translateY(-40px);
+}
+
+.center form {
+	border-radius: 5px;
+	border: 1px solid #bbb9b9b5;
+}
+
+.signup-form h2,
+input, p {
+	display: block;
+	font-family: Helvetica, sans-serif;
+}
+
+.signup-form h2 {
+	margin: 10px;
+}
+
+.signup-form p {
+	margin: 10px 10px 25px 10px;
+	font-size: small;
+	color: #999;
+}
+
+.signup-form input::placeholder {
+	color: #999;
+}
+
+.text-input {
+	width: 200px;
+	box-sizing: border-box;
+	border-radius: 5px;
+	border: 1px solid #bbb9b9b5;
+	box-shadow: 0 4px 2px -2px rgba(0, 0, 0, 0.2);
+	margin: 10px;
+	padding: 10px;
+}
+
+.checkbox-input {
+	display: inline-block;
+	font-size: small;
+	color: #999;
+	margin-left: 10px;
+	vertical-align: middle;
+}
+
+.checkbox-label {
+	font-family: Helvetica, sans-serif;
+	font-size: 10px;
+	color: #999;
+}
+
+.button-input {
+	width: 200px;
+	box-sizing: border-box;
+	border-radius: 5px;
+	border: 1px solid #bbb9b9b5;
+	background-color: #4070f4;
+	margin: 10px;
+	padding: 10px;
+	color: white;
+}
+
+.button-input:hover {
+	cursor: pointer;
+}
