@@ -4,31 +4,11 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<link rel="stylesheet" type="text/css" href="/css/index.css" />
+		<link rel="stylesheet" type="text/css" href="/css/navbar.css" />
 		<title>Tasks</title>
 	</head>
 	<body>
-		<nav class="navbar">
-			<div class="left-navbar">
-				<img
-					class="task-logo"
-					src="/images/task-logo.jpg"
-					alt="Task Logo"
-				/>
-				<a href="/">Home</a>
-				<a href="/about">About</a>
-				<a href="/user/db/authPage">FAQ</a>
-			</div>
-			<div class="right-navbar">
-				<img
-					class="internet-logo"
-					src="/images/internet-icon.png"
-					alt="Internet Icon"
-				/>
-				<button class="login-button" type="button">
-					<a href="/user/db/authPage">Login</a>
-				</button>
-			</div>
-		</nav>
+		<%- include("partials/navbar") %>
 		<div class="get-started">
 			<h1>Tasks Website</h1>
 			<p>Create your tasks easily and simply.</p>
