@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" type="text/css" href="/css/about.css" />
+		<title>About Us</title>
+	</head>
+	<body>
+		<div class="content">
+			<nav class="navbar">
+				<div class="left-navbar">
+					<img
+						class="task-logo"
+						src="/images/task-logo.jpg"
+						alt="Task Logo"
+					/>
+					<a href="/">Home</a>
+					<a href="/about">About</a>
+					<a href="/user/db/authPage">FAQ</a>
+				</div>
+				<div class="right-navbar">
+					<img
+						class="internet-logo"
+						src="/images/internet-icon.png"
+						alt="Internet Icon"
+					/>
+					<button class="login-button" type="button">
+						<a href="/user/db/authPage">Login</a>
+					</button>
+				</div>
+			</nav>
+		</div>
+		<!-- Introduction Section -->
+		<div class="section-1">
+			<div class="rectangle-1-shadow"></div>
+			<div class="rectangle-1">
+				<h1>About Us</h1>
+				<p>
+					At Task App, we help you plan and organize your day, week,
+					month, and year with a fast, simple, and effective task
+					planner. Join us for a free one-week trial and discover how
+					easy it is to stay on top of your goals.
+				</p>
+			</div>
+		</div>
+		<!-- How It Works Section -->
+		<div class="section-2">
+			<div class="rectangle-2"></div>
+			<div class="rectangle-3">
+				<h1>This is Task App</h1>
+				<div class="short-line"></div>
+				<p class="sentence-1">You create your tasks with ease</p>
+				<p>
+					Staying productive requires the right tools. A task creation
+					app simplifies the process of organizing daily
+					responsibilities, setting deadlines, and tracking progress.
+				</p>
+				<p>
+					With an intuitive interface, users can quickly add tasks,
+					categorize them, and prioritize what matters most. Reminders
+					ensure that important deadlines are never missed, while
+					recurring task options help with routine planning.
+				</p>
+				<p>
+					Collaboration features allow teams to work together
+					seamlessly, assigning tasks and sharing updates in real
+					time. Whether managing personal goals or professional
+					projects, a structured task system keeps everything in
+					order.
+				</p>
+			</div>
+		</div>
+		<!-- Founder Introduction -->
+		<div class="section-3">
+			<div class="rectangle-4">
+				<blockquote class="whole-sentence">
+					<span class="double-quotes">
+						<span class="first-sentence"
+							>Task App began with a simple thought - How</span
+						>
+						to give you the most effective way to create your task
+						and organize your work</span
+					>
+					<cite class="citation">- John Doe, Founder & CEO</cite>
+				</blockquote>
+			</div>
+		</div>
+		<!-- Contact Information -->
+		<div class="section-4">
+			<div class="rectangle-5">
+				<h1>Contact Us</h1>
+				<p>
+					Have feedback or need help? Feel free to reach out to our
+					support team at
+					<a href="mailto:support@taskapp.com">support@taskapp.com</a
+					>.
+				</p>
+			</div>
+			<div class="rectangle-6">
+				<form action="/api/db/todo-list/add" method="POST">
+					<div class="flex-box-names">
+						<div class="first-name-input-container">
+							<label for="first-name" class="labels">First Name*</label
+							><input
+								type="text"
+								name="first-name"
+								class="name-input-box"
+							/>
+						</div>
+						<div>
+							<label for="last-name" class="labels">Last Name</label>
+							<input
+								type="text"
+								name="last-name"
+								class="name-input-box"
+							/>
+						</div>
+					</div>
+					<div class="email-input-container">
+						<label for="email" class="labels">Email*</label>
+						<input
+							type="text"
+							name="email"
+							class="email-input-box"
+						/>
+					</div>
+					<div class="message-input-container">
+						<label for="message" class="labels">Message</label>
+						<textarea
+							name="message"
+							rows="5"
+							cols="56"
+							class="message-input-box"
+						></textarea>
+					</div>
+					<input
+						onclick="redirectToTask()"
+						type="submit"
+						value="Submit"
+						class="submit-button"
+					/>
+				</form>
+			</div>
+		</div>
+		<!-- <div class="center border">
+					<form
+						class="signup-form"
+						action="/user/db/sign-up"
+						method="POST"
+					>
+						<div><h2>Sign Up</h2></div>
+						<div><p>Create your account now</p></div>
+						<div>
+							<input
+								class="text-input"
+								type="text"
+								name="email"
+								placeholder="Email"
+								required
+							/>
+							<input
+								class="text-input"
+								type="password"
+								name="password"
+								placeholder="Password"
+								required
+							/>
+							<input
+								class="text-input"
+								type="password"
+								name="passwordConfirmation"
+								placeholder="Confirm password"
+								required
+							/>
+						</div>
+						<div>
+							<input
+								class="checkbox-input"
+								type="checkbox"
+								name="terms"
+							/>
+							<label class="checkbox-label" for="terms">
+								I accept all terms and conditions</label
+							>
+						</div>
+						<div>
+							<input
+								class="button-input"
+								type="submit"
+								value="Sign Up"
+							/>
+						</div>
+					</form>
+				</div> -->
+	</body>
+</html>

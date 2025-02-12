@@ -1,3 +1,9 @@
+body {
+	background: linear-gradient(to bottom, #ebf5ee 0%, #ffffff 50%);
+	margin: 0;
+}
+
+
 .center {
 	height: 100vh;
 	display: flex;
