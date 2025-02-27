@@ -1,0 +1,187 @@
+footer {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	grid-template-rows: repeat(3, 1fr) minmax(70px, auto);
+	background-color: #ebf5ee;
+	max-width: 95%;
+	margin: 0 auto;
+}
+
+.task-app {
+	grid-column-start: 1;
+	grid-column-end: 2;
+	grid-row-start: 1;
+	grid-row-end: 2;
+	margin-left: 50px;
+	margin-top: 20px;
+}
+
+.categories {
+	grid-column-start: 1;
+	grid-column-end: 3;
+	grid-row-start: 2;
+	grid-row-end: 3;
+	margin-left: 50px;
+	display: grid;
+	grid-template-columns: repeat(4, auto);
+	grid-template-rows: repeat(2, auto);
+	column-gap: 30px;
+	width: fit-content;
+}
+
+.categories-1, .categories-2 {
+	display: contents;
+}
+
+.categories-1 p {
+	margin: 0;
+	align-self: end;
+}
+
+.logos-container {
+	grid-column-start: 1;
+	grid-column-end: 3;
+	grid-row-start: 3;
+	grid-row-end: 4;
+	margin-top: 10px;
+	margin-left: 50px;
+}
+.facebook-logo {
+	width: 35px;
+	height: 35px;
+}
+
+.youtube-logo {
+	margin-left: 20px;
+	width: 45px;
+	height: 35px;
+}
+
+.logo {
+	margin-left: 20px;
+	width: 35px;
+	height: 35px;
+}
+
+.subscription {
+	grid-column-start: 3;
+	grid-column-end: 5;
+	grid-row-start: 2;
+	grid-row-end: 3;
+	justify-self: end;
+	margin-top: -40px;
+	margin-right: 50px;
+}
+
+.subscription-email {
+	width: 300px;
+	box-sizing: border-box;
+	border: 2px solid lightgray;
+	border-radius: 3px;
+	background: none;
+	padding: 10px;
+	font-size: 14px;
+}
+
+.subscription-button {
+	width: 100px;
+	box-sizing: border-box;
+	border: 2px solid lightgray;
+	border-radius: 3px;
+	border-left: none;
+	background: none;
+	margin-left: -6px;
+	padding: 10.4px;
+}
+
+.subscription-button:hover {
+	cursor: pointer;
+	background-color: lightgray;
+}
+
+.subscription-checkbox {
+	display: flex;
+	font-size: 14px;
+	margin-top: 15px;
+	align-items: flex-start;
+	gap: 6px;
+}
+
+.subscription-checkbox input {
+	appearance: none;
+	background: none;
+	width: 1.35em;
+	height: 1.35em;
+	border: 2px solid;
+	border-radius: 3px;
+	cursor: pointer;
+	margin-top: 1.5px;
+}
+
+.subscription-checkbox input:hover {
+	background-color: lightgray;
+}
+
+.subscription-checkbox input:checked {
+	background-color: orange;
+}
+
+.subscription-checkmark {
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 25px;
+	width: 25px;
+	background-color: #eee;
+}
+
+.subscription-checkbox label {
+	color: darkgray;
+}
+
+.break {
+	display: block;
+}
+
+.bottom-footer {
+	grid-column-start: 1;
+	grid-column-end: 5;
+	grid-row-start: 4;
+	display: grid;
+	grid-template-columns: 1fr;
+	grid-template-rows: 20px;
+}
+
+.long-line {
+	width: calc(100% - 100px);
+	height: 2px;
+	background-color: orange;
+	grid-column: 1 / -1;
+	grid-row-start: 1;
+	grid-row-end: 1;
+	margin-top: 20px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.policies-nav {
+	grid-column: 1 / -1;
+	grid-row-start: 2;
+	grid-row-end: 2;
+}
+
+.policies-sections {
+	display: flex;
+	margin-left: 50px;
+	gap: 20px;
+}
+
+.policies-sections p {
+	font-size: 14px;
+	color: darkgray;
+}
+
+.policies-sections p:not(:last-child)::after {
+	content: "|";
+	margin-left: 20px;
+}
