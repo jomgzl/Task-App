@@ -3,20 +3,25 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" type="text/css" href="/css/task.css" />
 		<title>Task <%=task[0].id%></title>
 	</head>
 	<body>
-		<h1>Task No. <%=task[0].id%></h1>
-		<h2>Title: <%=task[0].title%></h2>
-		<h3 style="display: inline-block">Status:</h3>
-		<p style="display: inline-block"><%=task[0].status%></p>
-		<h2>Description:</h2>
-		<p><%=task[0].description%></p>
-		<a href="/api/db/todo-list"><button>Go back to tasks</button></a>
-		<a href=/api/db/todo-list/modify/task/<%=task[0].id%>
-			><button style="margin: 100px 10px 100px 300px">Modify</button></a
-		>
-		<button onclick="deleteTask('<%=task[0].id%>')">Delete</button>
+		<div class="container-1">
+			<div class="task-details">
+				<h1>Task No. <%=task[0].id%></h1>
+				<h2>Title: <%=task[0].title%></h2>
+				<h3 style="display: inline-block">Status:</h3>
+				<p style="display: inline-block"><%=task[0].status%></p>
+				<h2>Description:</h2>
+				<p><%=task[0].description%></p>
+			</div>
+			<div class="bottom-buttons">
+				<a href="/api/db/todo-list"><button class="back-button">Go back to tasks</button></a>
+				<a class="modify-link" href="/api/db/todo-list/modify/task/<%=task[0].id%>"><button class="modify-button">Modify</button></a>
+				<button class="delete-button" onclick="deleteTask(`<%=task[0].id%>`)">Delete</button>
+			</div>
+		</div>
 		<script>
 			function deleteTask(id) {
 				fetch(`http://localhost:3000/api/db/todo-list/${id}`, {

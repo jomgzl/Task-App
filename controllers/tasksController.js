@@ -54,7 +54,16 @@ exports.getTasks = (req, res) => {
 	dbConnection.query(selectTableQuery, (err, rows, fields) => {
 		if (err) throw err;
 		console.log("The table is: ", rows);
-		res.render("tasks", { tasks: rows });
+
+		const formattedRows = rows.map((task) => {
+			return {
+				...task,
+				created_at: new Date(task.created_at).toLocaleDateString(),
+				updated_at: new Date(task.updated_at).toLocaleDateString()
+			};
+		});
+
+		res.render("tasks", { tasks: formattedRows });
 		// res.status(200).json(rows);
 	});
 };

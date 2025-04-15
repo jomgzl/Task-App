@@ -3,20 +3,23 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" type="text/css" href="/css/tasks.css" />
 		<title>Tasks</title>
 	</head>
 	<body>
-		<a href="/"><button>Go back to Home</button></a>
-		<a href="/api/db/todo-list/new/task"><button style="margin-left: 500px">+</button></a>
-		<table>
-			<tr>
+		<div class="upper-bar"><a href="/"><button class="back-button">Go back to Home</button></a>
+			<a href="/api/db/todo-list/new/task"><button class="add-button" style="margin-left: 500px">+</button></a></div>
+		<table class="table-style border">
+			<tr class="headings">
 				<th style="padding: 10px">Id</th>
 				<th>Title</th>
 				<th>Status</th>
 				<th>Description</th>
+				<th>Created at</th>
+				<th>Modified at</th>
 			</tr>
 			<%for(let i =0; i < tasks.length; i++) { %>
-			<tr>
+			<tr class="clickable-row" onclick="window.location.href= 'todo-list/<%=tasks[i].id%>'">
 				<td style="text-align: center; padding: 10px">
 					<a href= todo-list/<%=tasks[i].id%>><%=tasks[i].id%></a>
 				</td>
@@ -28,6 +31,12 @@
 				</td>
 				<td style="text-align: center; padding: 10px">
 					<%=tasks[i].description%>
+				</td>
+				<td style="text-align: center; padding: 10px">
+					<%=tasks[i].created_at%>
+				</td>
+				<td style="text-align: center; padding: 10px">
+					<%=tasks[i].updated_at%>
 				</td>
 				<%}%>
 			</tr>

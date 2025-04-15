@@ -1,0 +1,54 @@
+.upper-bar {
+	display: flex;
+	padding-bottom: 10px;
+}
+
+.back-button {
+	padding: 10px 20px 10px 20px;
+	border-radius: 5px;
+	border: none;
+	background-color: #4070f4;
+	font-weight: bold;
+	font-size: 15px;
+	color: white;
+	cursor: pointer;
+}
+
+.add-button {
+	padding: 10px 20px 10px 20px;
+	border-radius: 5px;
+	border: none;
+	background-color: #4070f4;
+	font-weight: bold;
+	font-size: 15px;
+	color: white;
+	cursor: pointer;
+}
+
+.table-style {
+	table-layout: auto;
+	width: 100%;
+	border: 3px solid black;
+	border-spacing: 0;
+}
+
+.headings {
+	background-color: orange;
+	font-size: 1.5rem;
+}
+
+.table-style tr:nth-child(even) {
+	background-color: #a5e3cd;
+}
+
+.table-style tr:hover:not(.headings) {
+	background-color: #ddd;
+}
+
+.table-style td {
+	font-size: 1.3rem;
+}
+
+.clickable-row {
+	cursor: pointer;
+}
