@@ -59,7 +59,8 @@ exports.getTasks = (req, res) => {
 			return {
 				...task,
 				created_at: new Date(task.created_at).toLocaleDateString(),
-				updated_at: new Date(task.updated_at).toLocaleDateString()
+				updated_at: new Date(task.updated_at).toLocaleDateString(),
+				due_date: new Date(task.due_date).toLocaleDateString(),
 			};
 		});
 
@@ -77,8 +78,16 @@ exports.getTask = (req, res) => {
 			const selectTaskQuery = "SELECT * FROM tasks WHERE id = ?";
 			dbConnection.query(selectTaskQuery, id, (err, task, fields) => {
 				if (err) throw err;
-				console.log("The task is: ", task);
-				res.render("task", { task: task });
+				const formattedTask = [
+					{
+						...task[0],
+						due_date: new Date(
+							task[0].due_date
+						).toLocaleDateString(),
+					},
+				];
+				console.log("The task is: ", formattedTask);
+				res.render("task", { task: formattedTask });
 				// res.status(200).json(task);
 			});
 		}
@@ -93,18 +102,19 @@ exports.createTask = (req, res) => {
 	const title = String(req.body.title);
 	const status = String(req.body.status);
 	const description = String(req.body.description);
+	const dueDate = String(req.body.due_date);
 
 	if (createTaskValidator(title, status, res)) return 0;
 	else {
 		const selectlastId = "SELECT id FROM tasks ORDER BY id DESC LIMIT 1";
 		const postQuery =
-			"INSERT INTO tasks (id, title, status, description) VALUES (?, ?, ?, ?)";
+			"INSERT INTO tasks (id, title, status, description, due_date) VALUES (?, ?, ?, ?, ?)";
 		let data = [];
 
 		dbConnection.query(selectlastId, (err, id, fields) => {
 			if (err) throw err;
 			id = id[0].id;
-			data.push(id + 1, title, status, description);
+			data.push(id + 1, title, status, description, dueDate);
 
 			dbConnection.query(postQuery, data, (err, taskAdded, fields) => {
 				if (err) throw err;
@@ -122,7 +132,20 @@ exports.renderUpdatePage = (req, res) => {
 
 	dbConnection.query(idSearchQuery, id, (err, result, fields) => {
 		if (err) throw err;
-		res.render("modify-task", { task: result });
+		let formattedResult;
+		result[0].due_date
+			? (formattedResult = [
+					{
+						...result[0],
+						due_date: result[0].due_date
+							.toISOString()
+							.split("T")[0],
+					},
+			  ])
+			: (formattedResult = result);
+
+		console.log("This is the formatted task", formattedResult);
+		res.render("modify-task", { task: formattedResult });
 	});
 };
 
@@ -131,6 +154,7 @@ exports.updateTask = (req, res) => {
 	const title = String(req.body.title);
 	const status = String(req.body.status);
 	const description = String(req.body.description);
+	const dueDate = String(req.body.due_date);
 
 	if (updateTaskValidator(status, res)) return 0;
 	else {
@@ -149,14 +173,16 @@ exports.updateTask = (req, res) => {
 				const taskTitle = result[0].title;
 				const taskStatus = result[0].status;
 				const taskDescription = result[0].description;
+				const taskDueDate = result[0].due_date;
 				const data = [
 					title || taskTitle,
 					status || taskStatus,
 					description || taskDescription,
+					dueDate || taskDueDate,
 					idFinal,
 				];
 				const updateIdsQuery =
-					"UPDATE tasks SET title = ?, status = ?, description = ? WHERE id = ?";
+					"UPDATE tasks SET title = ?, status = ?, description = ?, due_date = ? WHERE id = ?";
 
 				dbConnection.query(
 					updateIdsQuery,

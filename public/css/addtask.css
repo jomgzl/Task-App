@@ -1,0 +1,140 @@
+* {
+	font-family: "Saira", sans-serif;
+}
+
+.container-add-task {
+	display: flex;
+	flex-direction: column;
+	padding-top: 2rem;
+	padding-left: 5rem;
+	padding-right: 5rem;
+	position: relative;
+}
+
+.add-task-title {
+	align-self: center;
+	font-size: 2.5rem;
+	background-color: orange;
+	border-radius: 5px;
+	border: 3px solid #4070f4;
+}
+
+.form-add-task {
+	display: flex;
+	flex-direction: column;
+	width: fit-content;
+}
+
+.title-label,
+.status-label,
+.due-date-label,
+.description-label {
+	display: block;
+	margin-top: 10px;
+	margin-bottom: 0;
+	width: 15rem;
+	font-size: 2rem;
+	font-weight: bold;
+	border: 3px solid #4070f4;
+	border-bottom: 0;
+	background-color: orange;
+	padding-left: 1rem;
+	padding-top: 0.5rem;
+	padding-bottom: 0.5rem;
+	box-sizing: border-box;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+}
+
+.description-label {
+	width: 33rem;
+}
+
+.input-container {
+	border: 3px solid #4070f4;
+	border-bottom-left-radius: 5px;
+	border-bottom-right-radius: 5px;
+	border-top: 0;
+	padding-top: 1rem;
+	padding-bottom: 1rem;
+	padding-left: 1rem;
+	padding-right: 1rem;
+	width: 15rem;
+	font-size: 1.5rem;
+	box-sizing: border-box;
+	height: 4rem;
+	/* caret-color: orange; */
+}
+
+.input-container:focus {
+	outline: none;
+	border: 4px solid #4a90e2;
+	box-shadow: 0 0 5px #4a90e2;
+}
+
+.due-date-container .input-container {
+	cursor: text;
+}
+
+.description-container {
+	border: 3px solid #4070f4;
+	border-bottom-left-radius: 5px;
+	border-bottom-right-radius: 5px;
+	border-top: 0;
+	padding-top: 1rem;
+	padding-bottom: 1rem;
+	padding-left: 1rem;
+	padding-right: 1rem;
+	width: 33rem;
+	font-size: 1.5rem;
+	box-sizing: border-box;
+}
+
+.description-container:focus {
+	outline: none;
+	border: 4px solid #4a90e2;
+	box-shadow: 0 0 5px #4a90e2;
+}
+
+.status-due-date-container {
+	display: flex;
+	gap: 3rem;
+	width: 100%;
+}
+
+.status-container {
+	display: flex;
+	flex-direction: column;
+}
+
+.due-date-container {
+	display: flex;
+	flex-direction: column;
+}
+
+.add-button {
+	padding: 10px 20px 10px 20px;
+	margin-top: 1rem;
+	border-radius: 5px;
+	border: none;
+	background-color: #4070f4;
+	font-weight: bold;
+	font-size: 1rem;
+	color: white;
+	cursor: pointer;
+	width: 10rem;
+	align-self: flex-end;
+}
+
+.back-button {
+	bottom: 0;
+	padding: 10px 20px 10px 20px;
+	border-radius: 5px;
+	border: none;
+	background-color: #4070f4;
+	font-weight: bold;
+	font-size: 1rem;
+	color: white;
+	cursor: pointer;
+	position: absolute;
+}

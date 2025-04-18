@@ -3,64 +3,91 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" type="text/css" href="/css/modify-task.css" />
 		<title>Modify Task</title>
 	</head>
 	<body>
-		<a href="/api/db/todo-list"><button>Go back to tasks</button></a>
-		<div>
-			<form>
-				<label
-					style="
-						display: block;
-						margin-top: 10px;
-						margin-bottom: 10px;
-					"
-					>Title:</label
+		<div class="container-general-modify-task">
+			<h1 class="modify-task-title">Modify your Task</h1>
+			<div class="container-modify-task">
+				<form class="form-modify-task">
+					<label class="title-label">Title</label>
+					<input
+						class="input-container"
+						type="text"
+						name="title"
+						value="<%= task[0].title%>"
+					/>
+					<div class="status-due-date-container">
+						<div class="status-container">
+							<label class="status-label">Status</label>
+							<input
+								class="input-container"
+								type="text"
+								name="status"
+								value="<%= task[0].status%>"
+							/>
+						</div>
+						<div class="due-date-container">
+							<label class="due-date-label">Due Date</label>
+							<input
+								class="input-container"
+								type="date"
+								name="due_date"
+								value="<%= task[0].due_date%>"
+							/>
+						</div>
+					</div>
+					<label for="description" class="description-label"
+						>Description</label
+					>
+					<textarea
+						class="description-container"
+						name="description"
+						rows="5"
+						cols="56"
+					>
+ <%=task[0].description%></textarea
+					>
+				</form>
+				<button
+					class="modify-button"
+					onclick="redirectToTask('<%=task[0].id%>')"
 				>
-				<input type="text" name="title" value="<%= task[0].title%>" />
-				<label
-					style="
-						display: block;
-						margin-top: 10px;
-						margin-bottom: 10px;
-					"
-					>Status:</label
+					Modify
+				</button>
+				<a href="/api/db/todo-list"
+					><button class="back-button">Go back</button></a
 				>
-				<input type="text" name="status" value="<%= task[0].status%>" />
-				<label
-					for="description"
-					style="
-						display: block;
-						margin-top: 10px;
-						margin-bottom: 10px;
-					"
-					>Description:</label
-				>
-				<textarea name="description" rows="5" cols="56">
-<%=task[0].description%></textarea
-				>
-			</form>
-			<button onclick="redirectToTask('<%=task[0].id%>')">Modify</button>
+			</div>
 		</div>
 		<script>
 			function redirectToTask(id) {
 				let title = document.querySelector("form input[name='title']");
-				let status = document.querySelector("form input[name='status']");
-				let description = document.querySelector("form textarea[name='description']");
+				let status = document.querySelector(
+					"form input[name='status']"
+				);
+				let description = document.querySelector(
+					"form textarea[name='description']"
+				);
+				let dueDate = document.querySelector(
+					"form input[name='due_date']"
+				);
 				fetch(`http://localhost:3000/api/db/todo-list/${id}`, {
 					method: "PUT",
 					headers: { "Content-type": "application/json" },
 					body: JSON.stringify({
 						title: title.value,
 						status: status.value,
-						description: description.value
+						description: description.value,
+						due_date: dueDate.value,
 					}),
 				})
 					.then((response) => response.json())
 					.then((data) => {
 						console.log("In fetch update", data);
 						alert(`You've succesfully modified ${title.value}`);
-						window.location.href=`/api/db/todo-list/${id}`;
+						window.location.href = `/api/db/todo-list/${id}`;
 					})
 					.catch((error) => console.error("Error: ", error));
 			}

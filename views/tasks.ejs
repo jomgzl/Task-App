@@ -15,8 +15,7 @@
 				<th>Title</th>
 				<th>Status</th>
 				<th>Description</th>
-				<th>Created at</th>
-				<th>Modified at</th>
+				<th>Due date</th>
 			</tr>
 			<%for(let i =0; i < tasks.length; i++) { %>
 			<tr class="clickable-row" onclick="window.location.href= 'todo-list/<%=tasks[i].id%>'">
@@ -33,10 +32,7 @@
 					<%=tasks[i].description%>
 				</td>
 				<td style="text-align: center; padding: 10px">
-					<%=tasks[i].created_at%>
-				</td>
-				<td style="text-align: center; padding: 10px">
-					<%=tasks[i].updated_at%>
+					<%=tasks[i].due_date%>
 				</td>
 				<%}%>
 			</tr>

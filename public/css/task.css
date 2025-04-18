@@ -1,15 +1,87 @@
+* {
+	font-family: "Saira", sans-serif;
+}
+
 .container-1 {
 	display: flex;
 	flex-direction: column;
+	padding-left: 5rem;
+	padding-right: 5rem;
 }
 
 .task-details {
 	display: flex;
 	flex-direction: column;
+	padding-bottom: 3rem;
+}
+
+.task-id {
+	align-self: center;
+}
+
+.task-header {
+	display: flex;
+	gap: 1rem;
+	align-items: center;
+	position: relative;
+}
+
+.task-title {
+	width: fit-content;
+	font-size: 2rem;
+}
+
+.task-status {
+	width: fit-content;
+	background-color: #4070f4;
+	padding: 0.4rem 0.4rem;
+	border-radius: 9999px;
+	font-size: 0.6rem;
+	color: white;
+	align-self: center;
+}
+
+.task-date {
+	position: absolute;
+	left: 20rem;
+}
+
+.description-buttons-alignment {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+
+.description-title {
+	width: 30rem;
+	margin-bottom: 0;
+	border: 3px solid #4070f4;
+	border-bottom: 0;
+	background-color: orange;
+	padding-left: 1rem;
+	padding-top: 0.5rem;
+	padding-bottom: 0.5rem;
+	box-sizing: border-box;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+}
+
+.description-container {
+	width: 30rem;
+	border: 3px solid #4070f4;
+	border-top: 0;
+	padding-top: 1.5rem;
+	padding-bottom: 5rem;
+	padding-left: 1rem;
+	margin-top: 0;
+	box-sizing: border-box;
+	border-bottom-left-radius: 5px;
+	border-bottom-right-radius: 5px;
 }
 
 .buttom-buttons {
 	display: flex;
+	width: 30rem;
 }
 
 .back-button {
@@ -23,8 +95,10 @@
 	cursor: pointer;
 }
 
-.modify-link {
-	margin-left: 100px;
+.right-buttons {
+	margin-left: auto;
+	display: flex;
+	gap: 1rem;
 }
 
 .modify-button {

@@ -3,42 +3,56 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" type="text/css" href="/css/addtask.css" />
 		<title>Add Task</title>
 	</head>
 	<body>
-		<a href="/api/db/todo-list"><button>Go back</button></a>
-		<div>
-			<form action="/api/db/todo-list/add" method="POST">
-				<label
-					style="
-						display: block;
-						margin-top: 10px;
-						margin-bottom: 10px;
-					"
-					>Title:</label
+		<div class="container-add-task">
+			<h1 class="add-task-title">Add a New Task</h1>
+			<form
+				class="form-add-task"
+				action="/api/db/todo-list/add"
+				method="POST"
+			>
+				<label class="title-label">Title</label>
+				<input class="input-container" type="text" name="title" />
+				<div class="status-due-date-container">
+					<div class="status-container">
+						<label class="status-label">Status</label>
+						<input
+							class="input-container"
+							type="text"
+							name="status"
+						/>
+					</div>
+					<div class="due-date-container">
+						<label class="due-date-label">Due Date</label>
+						<input
+							class="input-container"
+							type="date"
+							name="due_date"
+						/>
+					</div>
+				</div>
+				<label for="description" class="description-label"
+					>Description</label
 				>
-				<input type="text" name="title" />
-				<label
-					style="
-						display: block;
-						margin-top: 10px;
-						margin-bottom: 10px;
-					"
-					>Status:</label
-				>
-				<input type="text" name="status" />
-				<label
-					for="description"
-					style="
-						display: block;
-						margin-top: 10px;
-						margin-bottom: 10px;
-					"
-					>Description:</label
-				>
-				<textarea name="description" rows="5" cols="56"></textarea>
-				<input onclick="redirectToTask()" type="submit" value="Add" />
+				<textarea
+					class="description-container"
+					name="description"
+					rows="5"
+					cols="56"
+				></textarea>
+				<input
+					class="add-button"
+					onclick="redirectToTask()"
+					type="submit"
+					value="Add"
+				/>
 			</form>
+			<a href="/api/db/todo-list"
+				><button class="back-button">Go back</button></a
+			>
 		</div>
 		<script>
 			function redirectToTask() {
