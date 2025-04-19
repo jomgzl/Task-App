@@ -56,7 +56,7 @@
 				>
 					Modify
 				</button>
-				<a href="/api/db/todo-list"
+				<a href="/tasks"
 					><button class="back-button">Go back</button></a
 				>
 			</div>
@@ -73,7 +73,7 @@
 				let dueDate = document.querySelector(
 					"form input[name='due_date']"
 				);
-				fetch(`http://localhost:3000/api/db/todo-list/${id}`, {
+				fetch(`http://localhost:3000/api/tasks/${id}`, {
 					method: "PUT",
 					headers: { "Content-type": "application/json" },
 					body: JSON.stringify({
@@ -87,7 +87,7 @@
 					.then((data) => {
 						console.log("In fetch update", data);
 						alert(`You've succesfully modified ${title.value}`);
-						window.location.href = `/api/db/todo-list/${id}`;
+						window.location.href = `/api/tasks/${id}`;
 					})
 					.catch((error) => console.error("Error: ", error));
 			}

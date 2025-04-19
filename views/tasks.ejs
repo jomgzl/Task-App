@@ -8,7 +8,7 @@
 	</head>
 	<body>
 		<div class="upper-bar"><a href="/"><button class="back-button">Go back to Home</button></a>
-			<a href="/api/db/todo-list/new/task"><button class="add-button" style="margin-left: 500px">+</button></a></div>
+			<a href="/api/tasks/new"><button class="add-button" style="margin-left: 500px">+</button></a></div>
 		<table class="table-style border">
 			<tr class="headings">
 				<th style="padding: 10px">Id</th>
@@ -18,12 +18,12 @@
 				<th>Due date</th>
 			</tr>
 			<%for(let i =0; i < tasks.length; i++) { %>
-			<tr class="clickable-row" onclick="window.location.href= 'todo-list/<%=tasks[i].id%>'">
+			<tr class="clickable-row" onclick="window.location.href= 'tasks/<%=tasks[i].id%>'">
 				<td style="text-align: center; padding: 10px">
-					<a href= todo-list/<%=tasks[i].id%>><%=tasks[i].id%></a>
+					<a href= tasks/<%=tasks[i].id%>><%=tasks[i].id%></a>
 				</td>
 				<td style="text-align: center; padding: 10px">
-					<a href= todo-list/<%=tasks[i].id%>><%=tasks[i].title%></a>
+					<a href= tasks/<%=tasks[i].id%>><%=tasks[i].title%></a>
 				</td>
 				<td style="text-align: center; padding: 10px">
 					<%=tasks[i].status%>

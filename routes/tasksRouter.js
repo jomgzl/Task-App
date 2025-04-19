@@ -2,12 +2,18 @@ const express = require("express");
 const router = express.Router();
 const tasksController = require("../controllers/tasksController");
 
-router.get("/db/todo-list", tasksController.getTasks);
-router.get("/db/todo-list/:id", tasksController.getTask);
-router.get("/db/todo-list/new/task", tasksController.renderAddTaskPage);
-router.get("/db/todo-list/modify/task/:id", tasksController.renderUpdatePage);
-router.post("/db/todo-list/add", tasksController.createTask);
-router.put("/db/todo-list/:id", tasksController.updateTask);
-router.delete("/db/todo-list/:id", tasksController.deleteTask);
+router
+	.route("/tasks")
+	.get(tasksController.getTasks)
+	.post(tasksController.createTask);
+	
+router
+	.route("/tasks/:id")
+	.get(tasksController.getTask)
+	.put(tasksController.updateTask)
+	.delete(tasksController.deleteTask);
+
+router.route("/tasks/new").get(tasksController.renderAddTaskPage);
+router.route("/tasks/edit/:id").get(tasksController.renderUpdatePage);
 
 module.exports = router;

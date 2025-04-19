@@ -119,7 +119,7 @@ exports.createTask = (req, res) => {
 			dbConnection.query(postQuery, data, (err, taskAdded, fields) => {
 				if (err) throw err;
 				console.log("The following task was added: ", data);
-				res.redirect(`/api/db/todo-list/${id + 1}`);
+				res.redirect(`/api/tasks/${id + 1}`);
 				// res.status(201).json({ Message: "Task added successfully" });
 			});
 		});

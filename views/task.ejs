@@ -22,13 +22,13 @@
 						</p>
 					</div>
 					<div class="buttom-buttons">
-						<a href="/api/db/todo-list"
+						<a href="/api/tasks"
 							><button class="back-button">Go back</button></a
 						>
 						<div class="right-buttons">
 							<a
 								class="modify-link"
-								href="/api/db/todo-list/modify/task/<%=task[0].id%>"
+								href="/api/tasks/edit/<%=task[0].id%>"
 								><button class="modify-button">
 									Modify
 								</button></a
@@ -46,7 +46,7 @@
 		</div>
 		<script>
 			function deleteTask(id) {
-				fetch(`http://localhost:3000/api/db/todo-list/${id}`, {
+				fetch(`http://localhost:3000/api/tasks/${id}`, {
 					method: "DELETE",
 					headers: { "Content-type": "application/json" },
 				})
@@ -54,7 +54,7 @@
 					.then((data) => {
 						console.log("Success", data);
 						alert(`Item ${id} deleted successfully`);
-						window.location.href = "/api/db/todo-list";
+						window.location.href = "/api/tasks";
 					})
 					.catch((error) => console.error("Error:", error));
 			}

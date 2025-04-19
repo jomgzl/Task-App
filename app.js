@@ -3,7 +3,7 @@ const app = express();
 
 const homeRoute = require("./routes/homeRouter");
 const usersRoutes = require("./routes/usersRouter");
-const tasksRoutes = require("./routes/tasksRouter");
+const tasksRouter = require("./routes/tasksRouter");
 const aboutRoute = require("./routes/aboutRouter");
 
 const bodyParser = require("body-parser");
@@ -18,7 +18,7 @@ app.use(express.static("public"));
 
 app.use("/", homeRoute);
 app.use("/user", usersRoutes);
-app.use("/api", tasksRoutes);
+app.use("/api", tasksRouter);
 app.use("/", aboutRoute);
 
 const port = 3000;
