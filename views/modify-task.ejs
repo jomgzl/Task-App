@@ -56,7 +56,7 @@
 				>
 					Modify
 				</button>
-				<a href="/tasks"
+				<a href="/api/tasks"
 					><button class="back-button">Go back</button></a
 				>
 			</div>
@@ -83,13 +83,18 @@
 						due_date: dueDate.value,
 					}),
 				})
-					.then((response) => response.json())
+					.then((response) => {
+						return response.json();
+					})
 					.then((data) => {
-						console.log("In fetch update", data);
+						if (data.error) {
+							alert(data.error);
+							throw new Error(data);
+						}
 						alert(`You've succesfully modified ${title.value}`);
 						window.location.href = `/api/tasks/${id}`;
 					})
-					.catch((error) => console.error("Error: ", error));
+					.catch((error) => console.error("Fetch error: ", error));
 			}
 		</script>
 	</body>

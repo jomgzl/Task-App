@@ -104,26 +104,23 @@ exports.createTask = (req, res) => {
 	const description = String(req.body.description);
 	const dueDate = String(req.body.due_date);
 
-	if (createTaskValidator(title, status, res)) return 0;
-	else {
-		const selectlastId = "SELECT id FROM tasks ORDER BY id DESC LIMIT 1";
-		const postQuery =
-			"INSERT INTO tasks (id, title, status, description, due_date) VALUES (?, ?, ?, ?, ?)";
-		let data = [];
+	const selectlastId = "SELECT id FROM tasks ORDER BY id DESC LIMIT 1";
+	const postQuery =
+		"INSERT INTO tasks (id, title, status, description, due_date) VALUES (?, ?, ?, ?, ?)";
+	let data = [];
 
-		dbConnection.query(selectlastId, (err, id, fields) => {
+	dbConnection.query(selectlastId, (err, id, fields) => {
+		if (err) throw err;
+		id = id[0].id;
+		data.push(id + 1, title, status, description, dueDate);
+
+		dbConnection.query(postQuery, data, (err, taskAdded, fields) => {
 			if (err) throw err;
-			id = id[0].id;
-			data.push(id + 1, title, status, description, dueDate);
-
-			dbConnection.query(postQuery, data, (err, taskAdded, fields) => {
-				if (err) throw err;
-				console.log("The following task was added: ", data);
-				res.redirect(`/api/tasks/${id + 1}`);
-				// res.status(201).json({ Message: "Task added successfully" });
-			});
+			console.log("The following task was added: ", data);
+			res.redirect(`/api/tasks/${id + 1}`);
+			// res.status(201).json({ Message: "Task added successfully" });
 		});
-	}
+	});
 };
 exports.renderUpdatePage = (req, res) => {
 	const id = Number(req.params.id);
@@ -156,47 +153,40 @@ exports.updateTask = (req, res) => {
 	const description = String(req.body.description);
 	const dueDate = String(req.body.due_date);
 
-	if (updateTaskValidator(status, res)) return 0;
-	else {
-		const idSearchQuery = "SELECT * FROM tasks WHERE id = ? ";
+	const idSearchQuery = "SELECT * FROM tasks WHERE id = ? ";
 
-		dbConnection.query(idSearchQuery, id, (err, result, fields) => {
-			if (err) throw err;
+	dbConnection.query(idSearchQuery, id, (err, result, fields) => {
+		if (err) throw err;
 
-			if (result.length === 0) {
-				return res.status(400).json({
-					error: "Task doesn't exist",
-					description: "Please choose a smaller ID",
+		if (result.length === 0) {
+			return res.status(400).json({
+				error: "Task doesn't exist",
+				description: "Please choose a smaller ID",
+			});
+		} else {
+			const idFinal = result[0].id;
+			const taskTitle = result[0].title;
+			const taskStatus = result[0].status;
+			const taskDescription = result[0].description;
+			const taskDueDate = result[0].due_date;
+			const data = [
+				title || taskTitle,
+				status || taskStatus,
+				description || taskDescription,
+				dueDate || taskDueDate,
+				idFinal,
+			];
+			const updateIdsQuery =
+				"UPDATE tasks SET title = ?, status = ?, description = ?, due_date = ? WHERE id = ?";
+
+			dbConnection.query(updateIdsQuery, data, (err, result, fields) => {
+				if (err) throw err;
+				res.status(201).json({
+					message: "Task updated successfully",
 				});
-			} else {
-				const idFinal = result[0].id;
-				const taskTitle = result[0].title;
-				const taskStatus = result[0].status;
-				const taskDescription = result[0].description;
-				const taskDueDate = result[0].due_date;
-				const data = [
-					title || taskTitle,
-					status || taskStatus,
-					description || taskDescription,
-					dueDate || taskDueDate,
-					idFinal,
-				];
-				const updateIdsQuery =
-					"UPDATE tasks SET title = ?, status = ?, description = ?, due_date = ? WHERE id = ?";
-
-				dbConnection.query(
-					updateIdsQuery,
-					data,
-					(err, result, fields) => {
-						if (err) throw err;
-						res.status(201).json({
-							message: "Task updated successfully",
-						});
-					}
-				);
-			}
-		});
-	}
+			});
+		}
+	});
 };
 
 exports.deleteTask = (req, res) => {

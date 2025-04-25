@@ -18,12 +18,12 @@
 				<th>Due date</th>
 			</tr>
 			<%for(let i =0; i < tasks.length; i++) { %>
-			<tr class="clickable-row" onclick="window.location.href= 'tasks/<%=tasks[i].id%>'">
+			<tr class="clickable-row" onclick="window.location.href= '/api/tasks/<%=tasks[i].id%>'">
 				<td style="text-align: center; padding: 10px">
-					<a href= tasks/<%=tasks[i].id%>><%=tasks[i].id%></a>
+					<a href= "/api/tasks/<%=tasks[i].id%>"><%=tasks[i].id%></a>
 				</td>
 				<td style="text-align: center; padding: 10px">
-					<a href= tasks/<%=tasks[i].id%>><%=tasks[i].title%></a>
+					<a href= "/api/tasks/<%=tasks[i].id%>"><%=tasks[i].title%></a>
 				</td>
 				<td style="text-align: center; padding: 10px">
 					<%=tasks[i].status%>
