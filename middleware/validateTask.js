@@ -30,24 +30,7 @@ const ensureStatus = (req, res, next) => {
 	next();
 };
 
-const ensureTaskExists = (id, res, doesNotExist) => {
-	const idSearchQuery = "SELECT * FROM tasks WHERE id = ? ";
-
-	dbConnection.query(idSearchQuery, id, (err, result, fields) => {
-		if (err) throw err;
-
-		if (result.length === 0) {
-			res.status(400).json({
-				error: "Task doesn't exist",
-				description: "Please choose a smaller ID",
-			});
-			doesNotExist(true);
-		} else doesNotExist(false);
-	});
-};
-
 module.exports = {
 	ensureTitle,
 	ensureStatus,
-	ensureTaskExists,
 };

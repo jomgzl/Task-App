@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const tasksController = require("../controllers/tasksController");
 const { ensureTitle, ensureStatus } = require("../middleware/validateTask");
+const { ensureTaskExists } = require("../middleware/taskExists");
 
 router.route("/tasks/new").get(tasksController.renderAddTaskPage);
 router.route("/tasks/edit/:id").get(tasksController.renderUpdatePage);
@@ -13,7 +14,7 @@ router
 
 router
 	.route("/tasks/:id")
-	.get(tasksController.getTask)
+	.get(ensureTaskExists, tasksController.getTask)
 	.put(ensureTitle, ensureStatus, tasksController.updateTask)
 	.delete(tasksController.deleteTask);
 
