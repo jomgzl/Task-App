@@ -9,7 +9,7 @@
 	<body>
 		<div class="container-add-task">
 			<h1 class="add-task-title">Add a New Task</h1>
-			<form class="form-add-task" action="/api/tasks" method="POST">
+			<form class="form-add-task">
 				<label class="title-label">Title</label>
 				<input class="input-container" type="text" name="title" />
 				<div class="status-due-date-container">
@@ -42,7 +42,7 @@
 				<input
 					class="add-button"
 					onclick="redirectToTask()"
-					type="submit"
+					type="button"
 					value="Add"
 				/>
 			</form>
@@ -52,7 +52,39 @@
 		</div>
 		<script>
 			function redirectToTask() {
-				alert("You've succesfully added a task");
+				let title = document.querySelector("form input[name='title']");
+				let status = document.querySelector(
+					"form input[name='status']"
+				);
+				let description = document.querySelector(
+					"form textarea[name='description']"
+				);
+				let dueDate = document.querySelector(
+					"form input[name='due_date']"
+				);
+				fetch(`http://localhost:3000/api/tasks`, {
+					method: "POST",
+					headers: { "Content-type": "application/json" },
+					body: JSON.stringify({
+						title: title.value,
+						status: status.value,
+						description: description.value,
+						due_date: dueDate.value,
+					}),
+				})
+					.then((response) => {
+						console.log("Response:", response);
+						return response.json();
+					})
+					.then((data) => {
+						if (data.error) {
+							alert(data.error);
+							throw new Error(data.error);
+						}
+						alert(`You've succesfully added ${title.value}`);
+						window.location.href = `/api/tasks/${data.id}`;
+					})
+					.catch((error) => console.error(error));
 			}
 		</script>
 	</body>

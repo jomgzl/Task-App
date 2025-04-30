@@ -1,9 +1,9 @@
 const dbConnection = require("../config/db");
-const task = require("../models/task");
+const Task = require("../models/task");
 
 exports.getTasks = async (req, res, next) => {
 	try {
-		const tasks = await task.findAll();
+		const tasks = await Task.findAll();
 		const formattedRows = tasks.map((task) => {
 			return {
 				...task,
@@ -21,7 +21,7 @@ exports.getTasks = async (req, res, next) => {
 exports.getTask = async (req, res, next) => {
 	try {
 		const id = req.params.id;
-		const tasks = await task.findTask(id);
+		const tasks = await Task.findById(id);
 		const formattedTask = [
 			{
 				...tasks,
@@ -43,38 +43,28 @@ exports.createTask = async (req, res, next) => {
 		const title = String(req.body.title);
 		const status = String(req.body.status);
 		const description = String(req.body.description);
-		const dueDate = String(req.body.due_date);
+		const due_date = String(req.body.due_date);
 
-		const id = await task.create({ title, status, description, dueDate });
+		const id = await Task.create({ title, status, description, due_date });
 
-		res.redirect(`/api/tasks/${id}`);
+		res.status(201).json({
+			id: id,
+			message: "Task created successfully",
+		});
 	} catch (err) {
 		next(err);
 	}
 };
-exports.renderUpdatePage = (req, res, next) => {
+exports.renderUpdatePage = async (req, res, next) => {
 	try {
 		const id = Number(req.params.id);
+		const tasks = await Task.findById(id);
+		const formattedResult = {
+			...tasks,
+			due_date: tasks.due_date.toLocaleDateString("en-CA"),
+		};
 
-		const idSearchQuery = "SELECT * FROM tasks WHERE id = ? ";
-
-		dbConnection.query(idSearchQuery, id, (err, result, fields) => {
-			if (err) throw err;
-			let formattedResult;
-			result[0].due_date
-				? (formattedResult = [
-						{
-							...result[0],
-							due_date: result[0].due_date
-								.toISOString()
-								.split("T")[0],
-						},
-				  ])
-				: (formattedResult = result);
-
-			console.log("This is the formatted task", formattedResult);
-			res.render("modify-task", { task: formattedResult });
-		});
+		res.render("modify-task", { task: formattedResult });
 	} catch (err) {
 		next(err);
 	}
@@ -86,14 +76,14 @@ exports.updateTask = async (req, res, next) => {
 		const title = String(req.body.title);
 		const status = String(req.body.status);
 		const description = String(req.body.description);
-		const dueDate = String(req.body.due_date);
+		const due_date = String(req.body.due_date);
 
-		const tasks = await task.modify({
+		const tasks = await Task.modify({
 			id,
 			title,
 			status,
 			description,
-			dueDate,
+			due_date,
 		});
 
 		res.status(201).json({
@@ -107,8 +97,8 @@ exports.updateTask = async (req, res, next) => {
 exports.deleteTask = async (req, res, next) => {
 	try {
 		const id = Number(req.params.id);
-		
-		const tasks = task.delete(id);
+
+		const tasks = Task.delete(id);
 
 		res.status(200).json({
 			message: "Item deleted successfully",

@@ -24,17 +24,23 @@ class Task {
 		return rows.map((row) => new Task(row));
 	}
 
-	static async findTask(id) {
+	static async findById(id) {
 		const [rows] = await db.query("SELECT * FROM tasks WHERE id = ?", [id]);
 		return new Task(rows[0]);
 	}
 
-	static async create({ title, status, description, due_date = new Date() }) {
+	static async create({ title, status, description, due_date }) {
 		let [id] = await db.query(
 			"SELECT id FROM tasks ORDER BY id DESC LIMIT 1"
 		);
-		id = id[0].id;
-		const data = [id + 1, title, status, description, due_date];
+		id.length > 0 ? (id = id[0].id) : (id = 0);
+		const data = [
+			id + 1,
+			title,
+			status,
+			description,
+			due_date || new Date(),
+		];
 
 		const [rows] = await db.query(
 			"INSERT INTO tasks (id, title, status, description, due_date) VALUES (?, ?, ?, ?, ?)",
@@ -48,7 +54,7 @@ class Task {
 		title,
 		status,
 		description,
-		due_date = new Date(),
+		due_date
 	}) {
 		const [task] = await db.query("SELECT * FROM tasks WHERE id = ? ", [
 			id,
